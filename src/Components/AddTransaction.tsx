@@ -2,27 +2,25 @@ import React, { useContext } from "react";
 import { UserContext } from "../Components/Context/GlobalState";
 export const AddTransaction: React.FC<{}> = () => {
   const { dispatch } = useContext(UserContext);
-  
+
   const [text, SetText] = React.useState<string>("");
   const [amount, Setamount] = React.useState<any>(5);
-  
-  const onCheck =(e:React.FormEvent<HTMLFormElement>)=>{
+
+  const onCheck = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
- 
-  dispatch({
-    type:"ADD_TRANSACTION",
-    payload:{
-      id: Math.floor(Math.random()*10000),
-      text,
-      amount:+amount
-    }
-  })
-  }
-  
-    // onClick={() => {dispatch({type:"DELETE_TRANSACTION",payload:props.id})}}
-       
-       
-  
+
+    dispatch({
+      type: "ADD_TRANSACTION",
+      payload: {
+        id: Math.floor(Math.random() * 10000),
+        text,
+        amount: +amount,
+      },
+    });
+    SetText("type again");
+
+    Setamount(0);
+  };
 
   return (
     <>
