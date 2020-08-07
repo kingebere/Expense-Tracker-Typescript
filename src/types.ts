@@ -6,7 +6,6 @@ export type First = {
   }[];
 };
 
-
 export type Actions =
   | {
       type: "ADD_TRANSACTION";

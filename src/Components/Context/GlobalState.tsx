@@ -3,6 +3,8 @@ import React, { useReducer, Dispatch } from "react";
 import { First } from "../../types";
 import { Actions } from "../../types";
 
+
+
 const initialState: First = {
   transactions: [
     { id: 1, text: "Flower", amount: -20 },
@@ -11,18 +13,23 @@ const initialState: First = {
     { id: 4, text: "Camera", amount: 150 },
   ],
 };
-const reducer = (state: First, action: Actions): First => {
+
+export const UserContext = React.createContext<{
+  state: First;
+  dispatch: Dispatch<Actions>;
+}>({ state: initialState, dispatch: () => null });
+const reducer = (state: First, action: Actions) => {
   switch (action.type) {
     case "ADD_TRANSACTION":
       return {
         ...state,
         transactions: [
+          ...state.transactions,
           {
             id: action.payload.id,
             text: action.payload.text,
             amount: action.payload.amount,
           },
-          ...state.transactions,
         ],
       };
     case "DELETE_TRANSACTION":
@@ -37,10 +44,7 @@ const reducer = (state: First, action: Actions): First => {
       return state;
   }
 };
-export const UserContext = React.createContext<{
-  state: First;
-  dispatch: Dispatch<Actions>;
-}>({ state: initialState, dispatch: () => null });
+
 
 export const GlobalState: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

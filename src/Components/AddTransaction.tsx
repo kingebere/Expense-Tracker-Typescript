@@ -4,9 +4,9 @@ export const AddTransaction: React.FC<{}> = () => {
   const { dispatch } = useContext(UserContext);
 
   const [text, SetText] = React.useState<string>("");
-  const [amount, Setamount] = React.useState<any>(5);
+  const [amount, Setamount] = React.useState<number>(5);
 
-  const onCheck = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch({
@@ -14,7 +14,7 @@ export const AddTransaction: React.FC<{}> = () => {
       payload: {
         id: Math.floor(Math.random() * 10000),
         text,
-        amount: +amount,
+        amount,
       },
     });
     SetText("type again");
@@ -25,7 +25,7 @@ export const AddTransaction: React.FC<{}> = () => {
   return (
     <>
       <h3>Add new transaction</h3>
-      <form onSubmit={onCheck}>
+      <form onSubmit={onSubmit}>
         <div className="form-controls">
           <label htmlFor="text">Text</label>
           <input
@@ -46,7 +46,7 @@ export const AddTransaction: React.FC<{}> = () => {
             type="number"
             value={amount}
             onChange={(e) => {
-              Setamount(e.target.value);
+              Setamount(parseInt(e.target.value));
             }}
             placeholder="Enter amount..."
           />
